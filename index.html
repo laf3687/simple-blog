@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .posts .post-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            /* justify-content: center; */
+        }
+    </style>
+</head>
+
+<body>
+    <template class="post-template">
+        <div class="post-container">
+            <a class="post-title"></a>
+            <p class="post-truncated-body"></p>
+            <p class="post-date"></p>
+            <!-- <a class="post-truncated-body"></p> -->
+        </div>
+    </template>
+    <main>
+        <div class="posts">
+            <!-- filled by javascript -->
+        </div>
+    </main>
+    <script>
+        function displayPost(postObject) {
+            const template = document.querySelector(".post-template")
+            const postContainerClone = template.content.cloneNode(true).querySelector("*")
+            const postTitle = postContainerClone.querySelector(".post-title")
+            const postBody = postContainerClone.querySelector(".post-truncated-body")
+            const postDate = postContainerClone.querySelector(".post-date")
+            postTitle.textContent = postObject.title
+            postTitle.href = "viewPost.html?post_id="+postObject.post_id
+            postBody.textContent = postObject.truncated_body
+            postDate.textContent = new Date(`${postObject.date_posted}`).toLocaleDateString()
+            document.querySelector(".posts").append(postContainerClone)
+        }
+        async function getPosts() {
+            try {
+                const data = await fetch("http://localhost:3000/getposts.php")
+                if (!data.ok) {
+                    throw new Error("fetch failed")
+                }
+                const response = await data.json()
+                console.log(response)
+                for (const article of response.data) {
+                    displayPost(article)
+                }
+            } catch (err) {
+                throw new Error(err.message)
+            }
+        }
+        getPosts()
+    </script>
+</body>
+
+</html>

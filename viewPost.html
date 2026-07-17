@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewPost</title>
+    <style>
+        header {
+            display: flex;
+            justify-content: center;
+        }
+
+        header button {
+            /* padding: 10px; */
+            background-color: rgb(44, 44, 44);
+            border: 1px rgb(54, 54, 54) solid;
+            border-radius: 10px;
+            padding: 3px 15px 3px 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .post .heading-and-date {
+            display: flex;
+            gap: 5px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .post .heading-and-date h1 {
+            margin: 0;
+        }
+
+        .post p {
+            max-width: 160ch;
+        }
+
+        hr {
+            width: 160ch;
+            max-width: 100%;
+            background-color: white;
+        }
+
+        .comments {
+            margin-top: 25px;
+        }
+
+        .comment-object {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 25px;
+        }
+
+        .comment-object p {
+            padding: 0;
+            margin: 0;
+            max-width: 160ch;
+        }
+
+        .comment-object .date-commented {
+            font-size: 10px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea {
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(212, 212, 212);
+            background-color: rgb(24, 24, 24);
+            border: 0;
+            border-radius: 15px;
+            width: 80ch;
+            max-width: 80%;
+            height: 200px;
+            resize: none;
+            padding: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: rgb(212, 212, 212) rgba(0, 0, 0, 0);
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <template class="comment-template">
+        <div class="comment-object">
+            <span class="date-commented"></span>
+            <p class="comment-text"></p>
+        </div>
+    </template>
+    <header>
+        <button onclick="window.location.href = './index.html'">Home</button>
+    </header>
+    <main>
+        <div class="post">
+            <div class="heading-and-date">
+                <h1></h1>
+                <span></span>
+            </div>
+            <p></p>
+        </div>
+        <hr>
+        <div class="comment-submission">
+            <form>
+                <textarea name="comment"></textarea>
+                <input type="submit" value="Comment">
+            </form>
+        </div>
+        <div class="comments"></div>
+    </main>
+    <script>
+        const post_id = new URLSearchParams(window.location.search).get("post_id")
+        const form = document.querySelector(".comment-submission form")
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            const text = form.querySelector("textarea").value
+            if (text !== "") {
+                postComment(post_id, text)
+            }
+        })
+
+        function displayPost(postObject) {
+            document.querySelector(".post .heading-and-date h1").textContent = postObject.title
+            document.querySelector(".post .heading-and-date span").textContent = new Date(`${postObject.date_posted}`).toLocaleDateString()
+            document.querySelector(".post p").textContent = postObject.body
+        }
+        function displayComment(commentObject) {
+            const template = document.querySelector(".comment-template")
+            const commentContainerClone = template.content.cloneNode(true).querySelector("*")
+            commentContainerClone.querySelector(".comment-object .comment-text").textContent = commentObject.comment
+            commentContainerClone.querySelector(".comment-object .date-commented").textContent = commentObject.date_commented
+            document.querySelector(".comments").append(commentContainerClone)
+        }
+
+        async function postComment(post_id, comment) {
+            try {
+                const formData = new FormData()
+                formData.set("post_id", post_id)
+                formData.set("comment", comment)
+                const data = await fetch("http://localhost:3000/postComment.php",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                )
+                if (!data.ok) {
+                    throw new Error(await data.text())
+                }
+                const response = await data.json()
+                console.log(response)
+                document.querySelector(".comments").querySelectorAll(":scope > *").forEach(e => e.remove())
+                form.querySelector("textarea").value = ""
+                getCommentsFromPostId(post_id)
+            } catch (err) {
+                throw new Error(err.message)
+            }
+        }
+
+
+        async function getCommentsFromPostId(post_id) {
+            try {
+                const formData = new FormData()
+                formData.set("post_id", post_id)
+                const data = await fetch("http://localhost:3000/getCommentsFromPostId.php",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                )
+                if (!data.ok) {
+                    throw new Error("fetch failed")
+                }
+                const response = await data.json()
+                console.log(response)
+                // displayComment(response)
+                for (const comment of response.data) {
+                    displayComment(comment)
+                }
+            } catch (err) {
+                throw new Error(err.message)
+            }
+        }
+        async function getPostFromId(post_id) {
+            try {
+                const formData = new FormData()
+                formData.set("post_id", post_id)
+                const data = await fetch("http://localhost:3000/getPostFromId.php",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                )
+                if (!data.ok) {
+                    throw new Error("fetch failed")
+                }
+                const response = await data.json()
+                console.log(response)
+                displayPost(response.data)
+            } catch (err) {
+                displayPost({ title: "Error.", "body": "This post no longer exists." })
+                throw new Error(err.message)
+            }
+        }
+        if (post_id !== null) {
+            getPostFromId(post_id)
+            getCommentsFromPostId(post_id)
+        } else {
+            window.location.href = "./index.html"
+        }
+    </script>
+</body>
+
+</html>
