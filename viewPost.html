@@ -12,7 +12,6 @@
         }
 
         header button {
-            /* padding: 10px; */
             background-color: rgb(44, 44, 44);
             border: 1px rgb(54, 54, 54) solid;
             border-radius: 10px;
@@ -106,7 +105,7 @@
     <template class="comment-template">
         <div class="comment-object">
             <span class="date-commented"></span>
-            <p class="comment-text"></p>
+            <!-- <p class="comment-text"></p> -->
         </div>
     </template>
     <header>
@@ -118,7 +117,7 @@
                 <h1></h1>
                 <span></span>
             </div>
-            <p></p>
+            <!-- <p></p> -->
         </div>
         <hr>
         <div class="comment-submission">
@@ -130,6 +129,8 @@
         <div class="comments"></div>
     </main>
     <script>
+        const nlrgx = /\r\n|\n/g
+
         const post_id = new URLSearchParams(window.location.search).get("post_id")
         const form = document.querySelector(".comment-submission form")
         form.addEventListener('submit', function (e) {
@@ -140,16 +141,35 @@
             }
         })
 
+        function displayPostHelper(postContent) {
+            const splitParagraphs = postContent.split(nlrgx)
+            for (const p of splitParagraphs) {
+                const newP = document.createElement("p")
+                newP.textContent = p
+                document.querySelector(".post").append(newP)
+            }
+        }
         function displayPost(postObject) {
             document.querySelector(".post .heading-and-date h1").textContent = postObject.title
             document.querySelector(".post .heading-and-date span").textContent = new Date(`${postObject.date_posted}`).toLocaleDateString()
-            document.querySelector(".post p").textContent = postObject.body
+            // document.querySelector(".post p").textContent = postObject.body
+            displayPostHelper(postObject.body)
+        }
+        function displayCommentHelper(commentContainerClone, commentContent) {
+            const splitParagraphs = commentContent.split(nlrgx)
+            for (const p of splitParagraphs) {
+                const newP = document.createElement("p")
+                newP.textContent = p
+                newP.classList.add("comment-text")
+                commentContainerClone.append(newP)
+            }
         }
         function displayComment(commentObject) {
             const template = document.querySelector(".comment-template")
             const commentContainerClone = template.content.cloneNode(true).querySelector("*")
-            commentContainerClone.querySelector(".comment-object .comment-text").textContent = commentObject.comment
+            // commentContainerClone.querySelector(".comment-object .comment-text").textContent = commentObject.comment
             commentContainerClone.querySelector(".comment-object .date-commented").textContent = commentObject.date_commented
+            displayCommentHelper(commentContainerClone, commentObject.comment)
             document.querySelector(".comments").append(commentContainerClone)
         }
 
