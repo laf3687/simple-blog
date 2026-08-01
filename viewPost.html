@@ -178,7 +178,7 @@
                 const formData = new FormData()
                 formData.set("post_id", post_id)
                 formData.set("comment", comment)
-                const data = await fetch("http://localhost:3000/postComment.php",
+                const data = await fetch("http://localhost:3000/apis/postComment.php",
                     {
                         method: "POST",
                         body: formData
@@ -202,7 +202,7 @@
             try {
                 const formData = new FormData()
                 formData.set("post_id", post_id)
-                const data = await fetch("http://localhost:3000/getCommentsFromPostId.php",
+                const data = await fetch("http://localhost:3000/apis/getCommentsFromPostId.php",
                     {
                         method: "POST",
                         body: formData
@@ -225,7 +225,7 @@
             try {
                 const formData = new FormData()
                 formData.set("post_id", post_id)
-                const data = await fetch("http://localhost:3000/getPostFromId.php",
+                const data = await fetch("http://localhost:3000/apis/getPostFromId.php",
                     {
                         method: "POST",
                         body: formData

@@ -10,7 +10,7 @@ class Statements {
     /**
      * returns an associative array of all items from a query
      */
-    static function retrieveFromQuery($mysqlConnection, string $query): array {
+    static function retrieveFromQuery(mysqli $mysqlConnection, string $query): array {
         try {
             $query = mysqli_query($mysqlConnection, $query, MYSQLI_ASSOC);
             return mysqli_fetch_all($query, MYSQLI_ASSOC);

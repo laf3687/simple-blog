@@ -17,4 +17,4 @@ async function retrieve(link: string, httpMethod: string = "GET", formData?: For
 const formData = new FormData()
 formData.set("post_id", "7")
 // formData.set("comment", "<script>alert('z');</script>")
-retrieve("http://localhost:3000/getPostFromId.php", "POST", formData)
+retrieve("http://localhost:3000/apis/getPostFromId.php", "POST", formData)

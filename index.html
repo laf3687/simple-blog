@@ -48,7 +48,7 @@
         }
         async function getPosts() {
             try {
-                const data = await fetch("http://localhost:3000/getposts.php")
+                const data = await fetch("http://localhost:3000/apis/getposts.php")
                 if (!data.ok) {
                     throw new Error("fetch failed")
                 }

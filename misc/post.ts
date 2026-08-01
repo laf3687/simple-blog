@@ -3,7 +3,7 @@ async function post(title: string, message: string) {
     formData.set("title", title)
     formData.set("body", message)
     try {
-        const data = await fetch("http://localhost:3000/postPost.php",
+        const data = await fetch("http://localhost:3000/apis/postPost.php",
             {
                 method: "POST",
                 body: formData
@@ -18,4 +18,5 @@ async function post(title: string, message: string) {
         console.error(err.message)
     }
 }
-post("Test Post 2","This is a test of\nmultiple lines\r\nwith multiple breakpoints")
+// post("Test Post 2","This is a test of\nmultiple lines\r\nwith multiple breakpoints")
+post("is Java good?","No.\nIt is not good.")

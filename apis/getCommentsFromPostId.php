@@ -1,10 +1,10 @@
 <?php
 
-include("./classes/Statements.php");
-include("./classes/ConnectMySQL.php");
-include("./classes/PreparedStatement.php");
-include("./classes/JsonHandler.php");
-include("./classes/FieldRequiredHandler.php");
+include("../classes/Statements.php");
+include("../classes/ConnectMySQL.php");
+include("../classes/PreparedStatement.php");
+include("../classes/JsonHandler.php");
+include("../classes/FieldRequiredHandler.php");
 
 FieldRequiredHandler::checkPostRequirements(["post_id"]);
 $postID = $_POST["post_id"];
