@@ -5,43 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        .posts .post-container {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="assets/main.css">
 </head>
 
 <body>
     <template class="post-template">
-        <div class="post-container">
-            <a class="post-title"></a>
-            <p class="post-truncated-body"></p>
-            <p class="post-date"></p>
-            <!-- <a class="post-truncated-body"></p> -->
-        </div>
+        <article class="post-container">
+            <a class="post-container-clickable">
+                <div>
+                    <h2 class="post-title"></h2>
+                    <p class="post-date"></p>
+                    <p class="post-truncated-body"></p>
+                </div>
+            </a>
+        </article>
     </template>
+    <header>
+        <div class="heading">
+            <a href="./index.html">
+                <h1>Luke's Blog</h1>
+            </a>
+        </div>
+    </header>
     <main>
-        <div class="posts">
-            <!-- filled by javascript -->
+        <div class="main-wrapper">
+            <div class="posts-wrapper">
+                <div class="posts">
+                    <!-- filled by javascript -->
+                </div>
+            </div>
         </div>
     </main>
     <script>
         function displayPost(postObject) {
             const template = document.querySelector(".post-template")
             const postContainerClone = template.content.cloneNode(true).querySelector("*")
+            const postContainerClickable = postContainerClone.querySelector("a.post-container-clickable")
+            
             const postTitle = postContainerClone.querySelector(".post-title")
             const postBody = postContainerClone.querySelector(".post-truncated-body")
             const postDate = postContainerClone.querySelector(".post-date")
             postTitle.textContent = postObject.title
-            postTitle.href = "viewPost.html?post_id="+postObject.post_id
+            // postTitle.href = "viewPost.html?post_id=" + postObject.post_id
+            postContainerClickable.href = "viewPost.html?post_id=" + postObject.post_id
             postBody.textContent = postObject.truncated_body
             postDate.textContent = new Date(`${postObject.date_posted}`).toLocaleDateString()
             document.querySelector(".posts").append(postContainerClone)
@@ -56,6 +63,7 @@
                 console.log(response)
                 for (const article of response.data) {
                     displayPost(article)
+                   
                 }
             } catch (err) {
                 throw new Error(err.message)
