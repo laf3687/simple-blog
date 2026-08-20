@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ViewPost</title>
-    <style>
-       
-    </style>
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="stylesheet" href="assets/viewpost.CSS">
+
 </head>
 
 <body>
@@ -17,25 +17,40 @@
             <!-- <p class="comment-text"></p> -->
         </div>
     </template>
-    <header>
+    <!-- <header>
         <button onclick="window.location.href = './index.html'">Home</button>
+    </header> -->
+    <header>
+        <div class="heading">
+            <a href="./index.html">
+                <h1>Luke's Blog</h1>
+            </a>
+        </div>
     </header>
     <main>
-        <div class="post">
-            <div class="heading-and-date">
-                <h1></h1>
-                <span></span>
+        <div class="main-post-wrapper">
+            <div class="post-wrapper">
+                <div class="post">
+                    <div class="heading-and-date">
+                        <h1></h1>
+                        <span></span>
+                    </div>
+                    <!-- <hr> -->
+
+                    <div class="paragraphs">
+                        <!-- filled by javascript -->
+                    </div>
+                </div>
+                <hr>
+                <div class="comment-submission">
+                    <form>
+                        <textarea name="comment"></textarea>
+                        <input type="submit" value="Comment">
+                    </form>
+                </div>
+                <div class="comments"></div>
             </div>
-            <!-- <p></p> -->
         </div>
-        <hr>
-        <div class="comment-submission">
-            <form>
-                <textarea name="comment"></textarea>
-                <input type="submit" value="Comment">
-            </form>
-        </div>
-        <div class="comments"></div>
     </main>
     <script>
         const nlrgx = /\r\n|\n/g
@@ -55,7 +70,7 @@
             for (const p of splitParagraphs) {
                 const newP = document.createElement("p")
                 newP.textContent = p
-                document.querySelector(".post").append(newP)
+                document.querySelector(".post .paragraphs").append(newP)
             }
         }
         function displayPost(postObject) {

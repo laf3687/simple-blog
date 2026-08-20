@@ -1,6 +1,5 @@
 .main-wrapper {
     display: flex;
-    /* flex-direction: ; */
     justify-content: center;
     width: 100%;
 }
@@ -18,32 +17,26 @@
 }
 
 .posts {
-    /* display: flex; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 15px;
     gap: 20px;
 
-    /* flex-wrap: wrap; */
+    /* stretch is to make it so each item in the grid has the same consistent height per row */
     align-items: stretch;
     justify-content: start;
 }
 
 
 .post-container {
-    /* flex-grow: 3; */
     border: 2px grey solid;
     border-radius: 15px;
-    /* padding: 10px; */
     transition: all 0.15s;
     
     a {
-        /* padding: 10px; */
-        /* margin: 10px; */
         text-decoration: none;
         color: var(--text-color);
         
-        /* height: 150px; */
         div {
             padding: 20px;
         }
@@ -55,7 +48,6 @@
     
     p.post-truncated-body {
         margin-top: 5px;
-        /* max-width: 100%; */
         line-break: anywhere;
     }
 
