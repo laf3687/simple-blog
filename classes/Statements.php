@@ -1,6 +1,6 @@
 <?php
 class Statements {
-    static $getPosts = "SELECT post_id, title, CONCAT(SUBSTR(body, 1, 25), \"...\") as truncated_body, date_posted FROM post ORDER BY date_posted DESC";
+    static $getPosts = "SELECT post_id, title, CONCAT(SUBSTR(body, 1, 32), \"...\") as truncated_body, date_posted FROM post ORDER BY date_posted DESC";
     static $getPostFromID = "SELECT title, body, date_posted FROM post WHERE post_id = ?";
     static $getCommentsFromPostID = "SELECT comment, date_commented, reply_comment_id FROM post JOIN comment USING (post_id) WHERE post_id = ? ORDER BY date_commented DESC;";
 
