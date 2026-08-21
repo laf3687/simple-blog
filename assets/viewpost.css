@@ -80,7 +80,6 @@ hr {
 
 .comment-submission {
     width: var(--main-width);
-    /* max-width: 1200px; */
     max-width: calc(var(--max-width-body) - 300px);
     margin-top: 10px;
 
@@ -115,6 +114,8 @@ hr {
             border-right: 2px rgb(55, 55, 55) solid;
             border-bottom: 2px rgb(55, 55, 55) solid;
 
+            transition: all 0.12s;
+
             &:hover {
                 background-color: rgb(24, 24, 24);
             }
@@ -125,7 +126,10 @@ hr {
                 border-right: 2px rgb(139, 139, 139) solid;
                 border-bottom: 2px rgb(139, 139, 139) solid;
             }
+        }
 
+        & > *:focus {
+            outline: 2px wheat solid;
         }
     }
 }
