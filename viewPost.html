@@ -65,11 +65,51 @@
             }
         })
 
+        function turnTextIntoSpans(text) {
+            const spans = []
+            const split = text.split(" ")
+            const breakOn = 18;
+            let queue = ""
+            for (let i = 0; i < split.length; i++) {
+                const word = split[i]
+                if (word.length > breakOn) {
+                    if (queue !== "") {
+                        const span = document.createElement("span")
+                        span.textContent = queue
+                        spans.push(span)
+                    }
+                    const longSpan = document.createElement("span")
+                    longSpan.classList.add("force-break")
+                    longSpan.textContent = word + ((i < split.length - 1) ? " " : "")
+                    spans.push(longSpan)
+                    queue = "";
+                } else {
+                    queue += word
+                    if (i < split.length - 1) {
+                        queue += " "
+                    }
+                }
+                // spans.push(span)
+            }
+            if (queue !== "") {
+                const span = document.createElement("span")
+                span.textContent = queue
+                spans.push(span)
+            }
+            return spans
+        }
+
         function displayPostHelper(postContent) {
             const splitParagraphs = postContent.split(nlrgx)
             for (const p of splitParagraphs) {
                 const newP = document.createElement("p")
-                newP.textContent = p
+                newP.lang = "en"
+                // newP.innerHTML = plantHyphensIntoReallyLongText(p)
+                const spans = turnTextIntoSpans(p)
+                spans.forEach(span => {
+                    newP.append(span)
+                })
+                // newP.textContent = p
                 document.querySelector(".post .paragraphs").append(newP)
             }
         }
@@ -83,7 +123,11 @@
             const splitParagraphs = commentContent.split(nlrgx)
             for (const p of splitParagraphs) {
                 const newP = document.createElement("p")
-                newP.textContent = p
+                // newP.textContent = p
+                const spans = turnTextIntoSpans(p)
+                spans.forEach(span => {
+                    newP.append(span)
+                })
                 newP.classList.add("comment-text")
                 commentContainerClone.append(newP)
             }
