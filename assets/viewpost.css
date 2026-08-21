@@ -1,6 +1,6 @@
 :scope {
     --main-width: 80%;
-    --max-width-body: 1500px;
+    --max-width-body: 1250px;
     --heading-size: 3rem;
     --date-heading-size: 1.2rem;
     --paragraph-size: 1.3rem;
@@ -133,6 +133,8 @@ hr {
 .comments {
     /* width: 80%; */
     width: var(--main-width);
+    /* max-width: var(--max-width-body); */
+    max-width: calc(var(--max-width-body) - 300px);
 
     .comment-object {
         .date-commented {

@@ -6,9 +6,14 @@ include("../classes/PreparedStatement.php");
 include("../classes/JsonHandler.php");
 include("../classes/FieldRequiredHandler.php");
 
-FieldRequiredHandler::checkPostRequirements(["title","body"]);
+FieldRequiredHandler::checkPostRequirements(["title","body","password"]);
 $title = $_POST["title"];
 $body = $_POST["body"];
+$password = $_POST["password"];
+
+if ($password !== "hello_world!") {
+    JsonHandler::throwErrorAndDie("Incorrect password for posting");
+}
 
 $mysqlConnection = connectDatabase();
 

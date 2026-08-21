@@ -84,12 +84,16 @@
                     spans.push(longSpan)
                     queue = "";
                 } else {
-                    queue += word
+                    // console.log(word)
+                    if (word === "") {
+                        queue += "\u00A0"
+                    } else {
+                        queue += word
+                    }
                     if (i < split.length - 1) {
                         queue += " "
                     }
                 }
-                // spans.push(span)
             }
             if (queue !== "") {
                 const span = document.createElement("span")
@@ -104,7 +108,6 @@
             for (const p of splitParagraphs) {
                 const newP = document.createElement("p")
                 newP.lang = "en"
-                // newP.innerHTML = plantHyphensIntoReallyLongText(p)
                 const spans = turnTextIntoSpans(p)
                 spans.forEach(span => {
                     newP.append(span)
