@@ -27,6 +27,7 @@ async function post(title: string, message: string) {
 // post("Space Test","twoconsecutivesuperlongwordsssssssssssssssssssssssssssssssssssssssssssss rightnexttoeachotherrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
 
 
-post("test","testing")
+post("","testing")
+// post("test","testing")
 
 // post("Test Post","This is an initial post for testing purposes\nDoes it handle breakpoints?")
