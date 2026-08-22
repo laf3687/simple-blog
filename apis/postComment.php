@@ -13,6 +13,10 @@ if ($comment === "") {
     JsonHandler::throwErrorAndDie("The comment cannot be empty.");
 }
 
+if (trim($comment) === "") {
+    JsonHandler::throwErrorAndDie("The comment cannot be empty. (checked trimmed whitespace)");
+}
+
 
 $mysqlConnection = connectDatabase();
 
