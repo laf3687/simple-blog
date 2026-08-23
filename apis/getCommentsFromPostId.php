@@ -6,6 +6,8 @@ include("../classes/PreparedStatement.php");
 include("../classes/JsonHandler.php");
 include("../classes/FieldRequiredHandler.php");
 
+// ini_set('memory_limit', '-1');
+
 FieldRequiredHandler::checkPostRequirements(["post_id"]);
 $postID = $_POST["post_id"];
 

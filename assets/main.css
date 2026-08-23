@@ -12,8 +12,11 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: 'Times New Roman', Times, serif;
-    /* font-family: Arial, Helvetica, sans-serif; */
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -42,3 +45,23 @@ header {
 }
 
 
+footer {
+    width: 100%;
+    margin-top: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    .footer-div {
+        /* align-items: end; */
+        height: 25px;
+        /* background-color: white; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+            font-size: 0.8rem;
+        }
+        
+    }
+}
