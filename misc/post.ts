@@ -24,10 +24,11 @@ async function post(title: string, message: string) {
 // post("Test post number 2","This is to test stuff with extremelylongwordsthatdonothaveanyspacestoseperatethem because ineedtoseeifitproperlyworksornotandthisoneisslightlylongerthantheotherones\nbruhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
 
 // post("Space Test","space                space  space                                                                                                 ")
-// post("Space Test","twoconsecutivesuperlongwordsssssssssssssssssssssssssssssssssssssssssssss rightnexttoeachotherrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+post("Space Test","twoconsecutivesuperlongwordsssssssssssssssssssssssssssssssssssssssssssss rightnexttoeachotherrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr lorem lorem lorem lorem lorem lorem\nlorem lorem lorem")
 
 
-post("","testing")
+// post("test post 1","testing")
 // post("test","testing")
 
 // post("Test Post","This is an initial post for testing purposes\nDoes it handle breakpoints?")
+post("Lorem","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")

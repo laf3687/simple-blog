@@ -1,10 +1,10 @@
 :scope {
     --main-width: 80%;
     --max-width-body: 1250px;
-    --heading-size: 3rem;
+    --heading-size: 2.5rem;
     --date-heading-size: 1.2rem;
-    --paragraph-size: 1.3rem;
-    --comment-size: 1.2rem;
+    --paragraph-size: 1.1rem;
+    --comment-size: 1.05rem;
 }
 
 .main-post-wrapper {
@@ -164,7 +164,7 @@ hr {
 
 @media screen and (max-width:500px) {
     :scope {
-        --paragraph-size: 1.1rem;
-        --comment-size: 1rem;
+        --paragraph-size: 1rem;
+        --comment-size: 0.95rem;
     }
 }
